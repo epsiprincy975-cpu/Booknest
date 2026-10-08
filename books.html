@@ -1,0 +1,669 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookNest - Categories</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    color:white;
+
+    background:
+    radial-gradient(circle at 10% 20%,#c026ff,transparent 25%),
+    radial-gradient(circle at 90% 10%,#702cff,transparent 25%),
+    radial-gradient(circle at 50% 90%,#e12cff,transparent 30%),
+    linear-gradient(135deg,#10001f,#30005c,#16002f);
+
+    background-size:200% 200%;
+    animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 7%;
+
+    background:rgba(20,0,40,.88);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ff79d4;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#ff80d7;
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:70px 20px 35px;
+}
+
+.hero h1{
+    font-size:52px;
+
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #ff83d5,
+        #c59cff,
+        #fff
+    );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+    color:transparent;
+
+    animation:titleMove 5s linear infinite;
+}
+
+.hero p{
+    margin-top:15px;
+    color:#decaff;
+    font-size:18px;
+}
+
+@keyframes titleMove{
+    from{background-position:0%}
+    to{background-position:300%}
+}
+
+/* SEARCH */
+
+.search-box{
+    display:flex;
+    justify-content:center;
+    margin:15px auto 45px;
+}
+
+.search-box input{
+    width:450px;
+    max-width:90%;
+
+    padding:17px 25px;
+
+    border:none;
+    outline:none;
+
+    border-radius:35px;
+
+    color:white;
+    font-size:16px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:0 0 25px rgba(210,80,255,.18);
+
+    transition:.4s;
+}
+
+.search-box input::placeholder{
+    color:#ddc9ed;
+}
+
+.search-box input:focus{
+    width:500px;
+    border-color:#ff79d4;
+    box-shadow:0 0 30px rgba(255,80,200,.35);
+}
+
+/* TITLE */
+
+.section-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    font-size:30px;
+}
+
+/* CATEGORY GRID */
+
+.categories{
+    width:90%;
+    max-width:1250px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:22px;
+
+    padding-bottom:70px;
+}
+
+/* CARD */
+
+.category-card{
+    position:relative;
+
+    min-height:190px;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    text-decoration:none;
+    color:white;
+
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    backdrop-filter:blur(18px);
+
+    overflow:hidden;
+
+    transition:.45s;
+
+    animation:cardIn .7s ease both;
+}
+
+.category-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    background:rgba(255,100,220,.18);
+
+    filter:blur(15px);
+
+    top:-50px;
+    right:-40px;
+}
+
+.category-card:hover{
+    transform:
+    translateY(-10px)
+    scale(1.03);
+
+    background:rgba(180,70,255,.28);
+
+    border-color:#ff7bd4;
+
+    box-shadow:
+    0 15px 45px
+    rgba(220,80,255,.4);
+}
+
+.icon{
+    font-size:50px;
+    margin-bottom:15px;
+
+    transition:.4s;
+}
+
+.category-card:hover .icon{
+    transform:
+    scale(1.2)
+    rotate(5deg);
+}
+
+.category-card h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.category-card p{
+    color:#d9c4e8;
+    font-size:13px;
+}
+
+/* SEARCH HIDE */
+
+.category-card.hide{
+    display:none;
+}
+
+.no-result{
+    display:none;
+    text-align:center;
+    padding:30px;
+    font-size:20px;
+    color:#e6d4f5;
+}
+
+/* ANIMATION */
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .categories{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav{
+        gap:15px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .categories{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Book<span>Nest</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="book.html">Books</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html">Cart</a>
+        <a href="return.html">Orders</a>
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>Explore BookNest 📚</h1>
+
+    <p>
+        Find your favourite books from every category
+    </p>
+
+</section>
+
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search categories..."
+    >
+
+</div>
+
+
+<div class="section-title">
+
+    <h2>✨ Browse Categories</h2>
+
+</div>
+
+
+<div class="categories" id="categories">
+
+
+    <!-- COLLEGE -->
+
+    <a
+        href="category.html?category=college"
+        class="category-card"
+        data-name="college books"
+    >
+
+        <div class="icon">🎓</div>
+
+        <h3>College Books</h3>
+
+        <p>Engineering & Academic Books</p>
+
+    </a>
+
+
+    <!-- BEAUTY -->
+
+    <a
+        href="category.html?category=beauty"
+        class="category-card"
+        data-name="beauty books"
+    >
+
+        <div class="icon">💄</div>
+
+        <h3>Beauty Books</h3>
+
+        <p>Beauty, Skin & Hair Care</p>
+
+    </a>
+
+
+    <!-- STORY -->
+
+    <a
+        href="category.html?category=story"
+        class="category-card"
+        data-name="story books"
+    >
+
+        <div class="icon">📖</div>
+
+        <h3>Story Books</h3>
+
+        <p>Fiction & Wonderful Stories</p>
+
+    </a>
+
+
+    <!-- TECHNOLOGY -->
+
+    <a
+        href="category.html?category=technology"
+        class="category-card"
+        data-name="technology books"
+    >
+
+        <div class="icon">💻</div>
+
+        <h3>Technology Books</h3>
+
+        <p>Programming & Computer Science</p>
+
+    </a>
+
+
+    <!-- DEVOTION -->
+
+    <a
+        href="category.html?category=devotion"
+        class="category-card"
+        data-name="devotion books"
+    >
+
+        <div class="icon">🙏</div>
+
+        <h3>Devotion Books</h3>
+
+        <p>Spiritual & Devotional Books</p>
+
+    </a>
+
+
+    <!-- SELF DEVELOPMENT -->
+
+    <a
+        href="category.html?category=self"
+        class="category-card"
+        data-name="self development"
+    >
+
+        <div class="icon">🧠</div>
+
+        <h3>Self Development</h3>
+
+        <p>Motivation & Personal Growth</p>
+
+    </a>
+
+
+    <!-- BUSINESS -->
+
+    <a
+        href="category.html?category=business"
+        class="category-card"
+        data-name="business finance"
+    >
+
+        <div class="icon">💰</div>
+
+        <h3>Business & Finance</h3>
+
+        <p>Money, Business & Investment</p>
+
+    </a>
+
+
+    <!-- SCIENCE -->
+
+    <a
+        href="category.html?category=science"
+        class="category-card"
+        data-name="science books"
+    >
+
+        <div class="icon">🔬</div>
+
+        <h3>Science Books</h3>
+
+        <p>Physics, Chemistry & Biology</p>
+
+    </a>
+
+
+    <!-- MYSTERY -->
+
+    <a
+        href="category.html?category=mystery"
+        class="category-card"
+        data-name="mystery thriller"
+    >
+
+        <div class="icon">🕵️</div>
+
+        <h3>Mystery & Thriller</h3>
+
+        <p>Suspense, Crime & Detective</p>
+
+    </a>
+
+
+    <!-- ROMANCE -->
+
+    <a
+        href="category.html?category=romance"
+        class="category-card"
+        data-name="romance love"
+    >
+
+        <div class="icon">❤️</div>
+
+        <h3>Romance Books</h3>
+
+        <p>Love Stories & Romance</p>
+
+    </a>
+
+
+    <!-- HISTORY -->
+
+    <a
+        href="category.html?category=history"
+        class="category-card"
+        data-name="history geography"
+    >
+
+        <div class="icon">🌍</div>
+
+        <h3>History & Geography</h3>
+
+        <p>World & Indian History</p>
+
+    </a>
+
+
+    <!-- KIDS -->
+
+    <a
+        href="category.html?category=kids"
+        class="category-card"
+        data-name="kids children"
+    >
+
+        <div class="icon">🧒</div>
+
+        <h3>Kids Books</h3>
+
+        <p>Stories & Learning Books</p>
+
+    </a>
+
+
+</div>
+
+
+<div
+    class="no-result"
+    id="noResult"
+>
+    😔 No category found
+</div>
+
+
+<script>
+
+const search =
+document.getElementById("search");
+
+const cards =
+document.querySelectorAll(".category-card");
+
+const noResult =
+document.getElementById("noResult");
+
+
+search.addEventListener(
+    "input",
+    function(){
+
+        const value =
+        this.value
+        .toLowerCase()
+        .trim();
+
+        let found=false;
+
+
+        cards.forEach(card=>{
+
+            const name =
+            card.dataset.name;
+
+            if(
+                name.includes(value)
+            ){
+
+                card.classList.remove("hide");
+
+                found=true;
+
+            }
+
+            else{
+
+                card.classList.add("hide");
+
+            }
+
+        });
+
+
+        noResult.style.display =
+        found ? "none" : "block";
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```

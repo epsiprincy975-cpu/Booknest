@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookNest - Category</title>
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    color:white;
+
+    background:
+        radial-gradient(circle at 10% 10%, #d34cff 0%, transparent 25%),
+        radial-gradient(circle at 90% 15%, #7c2cff 0%, transparent 25%),
+        radial-gradient(circle at 50% 90%, #e42cff 0%, transparent 30%),
+        linear-gradient(
+            135deg,
+            #12001f,
+            #35005c,
+            #18002d
+        );
+
+    background-size:200% 200%;
+
+    animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 5%;
+
+    background:rgba(20,0,40,.94);
+
+    backdrop-filter:blur(15px);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.15);
+
+}
+
+.logo{
+
+    font-size:30px;
+    font-weight:bold;
+
+}
+
+.logo span{
+
+    color:#ff75d1;
+
+}
+
+nav{
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+}
+
+nav a{
+
+    color:white;
+    text-decoration:none;
+
+    padding:10px 14px;
+
+    border-radius:22px;
+
+    font-size:14px;
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+nav a:hover{
+
+    background:
+        rgba(219,71,255,.25);
+
+    color:#ff8bda;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =========================
+   TOP SECTION
+========================= */
+
+.top{
+
+    width:92%;
+    max-width:1400px;
+
+    margin:40px auto 20px;
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.title h1{
+
+    font-size:40px;
+
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            #ff8bd9,
+            #bd8cff,
+            white
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:titleMove 5s linear infinite;
+
+}
+
+@keyframes titleMove{
+
+    from{
+        background-position:0%;
+    }
+
+    to{
+        background-position:300%;
+    }
+
+}
+
+.title p{
+
+    margin-top:8px;
+
+    color:#dfcbed;
+
+    font-size:16px;
+
+}
+
+.back{
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    transition:.3s;
+
+}
+
+.back:hover{
+
+    background:
+        rgba(210,70,255,.30);
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.searchBox{
+
+    width:92%;
+    max-width:1400px;
+
+    margin:0 auto 25px;
+
+}
+
+.searchBox input{
+
+    width:100%;
+
+    padding:17px 22px;
+
+    border:none;
+    outline:none;
+
+    border-radius:30px;
+
+    color:white;
+
+    font-size:16px;
+
+    background:
+        rgba(255,255,255,.11);
+
+    border:
+        1px solid
+        rgba(255,255,255,.20);
+
+}
+
+.searchBox input::placeholder{
+
+    color:#d9c4e8;
+
+}
+
+.searchBox input:focus{
+
+    border-color:#ff72d0;
+
+    box-shadow:
+        0 0 25px
+        rgba(255,90,210,.25);
+
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+
+    width:92%;
+    max-width:1400px;
+
+    margin:60px auto;
+
+    text-align:center;
+
+    font-size:22px;
+
+}
+
+.loader{
+
+    width:50px;
+    height:50px;
+
+    margin:0 auto 20px;
+
+    border-radius:50%;
+
+    border:
+        5px solid
+        rgba(255,255,255,.15);
+
+    border-top:
+        5px solid
+        #ff72d0;
+
+    animation:
+        spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================
+   BOOK GRID
+========================= */
+
+.bookGrid{
+
+    width:92%;
+    max-width:1400px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:28px;
+
+    padding-bottom:70px;
+
+}
+
+
+/* =========================
+   BOOK CARD
+========================= */
+
+.bookCard{
+
+    display:flex;
+
+    gap:20px;
+
+    padding:18px;
+
+    min-height:290px;
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,.17);
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.25);
+
+    transition:.4s;
+
+    animation:
+        cardShow .6s ease both;
+
+}
+
+.bookCard:hover{
+
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 20px 50px
+        rgba(215,60,255,.40);
+
+}
+
+@keyframes cardShow{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================
+   COVER
+========================= */
+
+.cover{
+
+    width:170px;
+    min-width:170px;
+
+    height:250px;
+
+    border-radius:13px;
+
+    overflow:hidden;
+
+    background:#25043b;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.45);
+
+}
+
+.cover img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.5s;
+
+}
+
+.bookCard:hover
+.cover img{
+
+    transform:scale(1.05);
+
+}
+
+
+/* =========================
+   BOOK INFO
+========================= */
+
+.bookInfo{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    flex:1;
+
+}
+
+.bookInfo h2{
+
+    font-size:21px;
+
+    line-height:1.35;
+
+    margin-bottom:10px;
+
+}
+
+.author{
+
+    color:#e3cdef;
+
+    margin-bottom:8px;
+
+}
+
+.publisher{
+
+    color:#cdb6dd;
+
+    font-size:14px;
+
+    margin-bottom:6px;
+
+}
+
+.sponsor{
+
+    color:#cdb6dd;
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+}
+
+.price{
+
+    font-size:23px;
+
+    font-weight:bold;
+
+    color:#ff9bdd;
+
+    margin:8px 0 15px;
+
+}
+
+.price small{
+
+    font-size:11px;
+
+    color:#cbb4d8;
+
+    font-weight:normal;
+
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+}
+
+.btn{
+
+    border:none;
+
+    color:white;
+
+    padding:9px 12px;
+
+    border-radius:22px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    transform:
+        translateY(-3px);
+
+}
+
+.wishlist{
+
+    background:
+        rgba(255,65,150,.25);
+
+    border:
+        1px solid
+        rgba(255,110,180,.4);
+
+}
+
+.cart{
+
+    background:
+        linear-gradient(
+            45deg,
+            #722cff,
+            #b832e8
+        );
+
+}
+
+.view{
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff4e83,
+            #ff765c
+        );
+
+}
+
+
+/* =========================
+   NO BOOK
+========================= */
+
+.noBooks{
+
+    width:92%;
+    max-width:1000px;
+
+    margin:60px auto;
+
+    text-align:center;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color:#e7d5f2;
+
+    font-size:20px;
+
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:950px){
+
+    header{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    nav{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    .bookGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .title h1{
+
+        font-size:30px;
+
+    }
+
+    .bookCard{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        text-align:center;
+
+    }
+
+    .bookInfo{
+
+        align-items:center;
+
+    }
+
+    .buttons{
+
+        justify-content:center;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+
+        Book<span>Nest</span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            🏠 Home
+        </a>
+
+        <!-- YOUR FILE NAME -->
+        <a href="books.html">
+            📚 Categories
+        </a>
+
+        <a href="wishlist.html">
+            ❤️ Wishlist
+        </a>
+
+        <a href="cart.html">
+            🛒 Cart
+        </a>
+
+        <a href="return.html">
+            📦 Orders
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     TITLE
+========================= -->
+
+<section class="top">
+
+    <div class="title">
+
+        <h1 id="categoryTitle">
+            📚 Books
+        </h1>
+
+        <p id="categoryDescription">
+            Discover books from this category
+        </p>
+
+    </div>
+
+
+    <a
+        href="books.html"
+        class="back"
+    >
+        ← Back to Categories
+    </a>
+
+</section>
+
+
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<div class="searchBox">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search books, authors or publishers..."
+    >
+
+</div>
+
+
+
+<!-- =========================
+     LOADING
+========================= -->
+
+<div
+    class="loading"
+    id="loading"
+>
+
+    <div class="loader"></div>
+
+    Loading real books...
+
+</div>
+
+
+
+<!-- =========================
+     BOOKS
+========================= -->
+
+<div
+    class="bookGrid"
+    id="bookGrid"
+></div>
+
+
+
+<div
+    class="noBooks"
+    id="noBooks"
+    style="display:none"
+>
+
+    😔 No books found.
+
+    <br><br>
+
+    Try another search.
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   GET CATEGORY FROM books.html
+===================================================== */
+
+const params =
+new URLSearchParams(
+    window.location.search
+);
+
+const category =
+params.get("category") || "college";
+
+
+
+/* =====================================================
+   CATEGORY INFORMATION
+===================================================== */
+
+const categoryInfo = {
+
+    college:{
+        name:"🎓 College Books",
+        search:"computer science textbook"
+    },
+
+    beauty:{
+        name:"💄 Beauty Books",
+        search:"beauty makeup skincare cosmetics"
+    },
+
+    story:{
+        name:"📖 Story Books",
+        search:"classic fiction stories"
+    },
+
+    technology:{
+        name:"💻 Technology Books",
+        search:"programming technology computer science"
+    },
+
+    devotion:{
+        name:"🙏 Devotion Books",
+        search:"religion spirituality devotional"
+    },
+
+    self:{
+        name:"🧠 Self Development",
+        search:"self help personal development"
+    },
+
+    business:{
+        name:"💰 Business & Finance",
+        search:"business finance entrepreneurship"
+    },
+
+    science:{
+        name:"🔬 Science Books",
+        search:"science biology physics chemistry"
+    },
+
+    mystery:{
+        name:"🕵️ Mystery & Thriller",
+        search:"mystery thriller detective fiction"
+    },
+
+    romance:{
+        name:"❤️ Romance Books",
+        search:"romance fiction love stories"
+    },
+
+    history:{
+        name:"🌍 History & Geography",
+        search:"history geography world history"
+    },
+
+    kids:{
+        name:"🧒 Kids Books",
+        search:"children books kids stories"
+
+    }
+
+};
+
+
+
+/* =====================================================
+   SET TITLE
+===================================================== */
+
+const selectedCategory =
+categoryInfo[category]
+||
+categoryInfo.college;
+
+
+document.getElementById(
+    "categoryTitle"
+).innerText =
+selectedCategory.name;
+
+
+document.getElementById(
+    "categoryDescription"
+).innerText =
+"Explore 15+ books from " +
+selectedCategory.name;
+
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let allBooks = [];
+
+let visibleBooks = [];
+
+
+
+/* =====================================================
+   LOAD BOOKS FROM OPEN LIBRARY
+===================================================== */
+
+async function loadBooks(){
+
+    const loading =
+    document.getElementById(
+        "loading"
+    );
+
+    const grid =
+    document.getElementById(
+        "bookGrid"
+    );
+
+    const noBooks =
+    document.getElementById(
+        "noBooks"
+    );
+
+
+    loading.style.display =
+    "block";
+
+    grid.innerHTML = "";
+
+    noBooks.style.display =
+    "none";
+
+
+    try{
+
+        const query =
+        encodeURIComponent(
+            selectedCategory.search
+        );
+
+
+        const apiURL =
+        "https://openlibrary.org/search.json" +
+        "?q=" +
+        query +
+        "&limit=30" +
+        "&fields=key,title,author_name,publisher," +
+        "isbn,cover_i,first_publish_year";
+
+
+        const response =
+        await fetch(apiURL);
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Unable to load books"
+            );
+
+        }
+
+
+        const data =
+        await response.json();
+
+
+        /*
+          Remove duplicate titles
+        */
+
+        const unique =
+        new Map();
+
+
+        data.docs.forEach(
+            function(book){
+
+                const title =
+                book.title;
+
+                if(
+                    title &&
+                    !unique.has(
+                        title.toLowerCase()
+                    )
+                ){
+
+                    unique.set(
+                        title.toLowerCase(),
+                        book
+                    );
+
+                }
+
+            }
+        );
+
+
+        allBooks =
+        Array.from(
+            unique.values()
+        )
+        .slice(0,15)
+        .map(
+            function(book,index){
+
+                return formatBook(
+                    book,
+                    index
+                );
+
+            }
+        );
+
+
+        visibleBooks =
+        [...allBooks];
+
+
+        loading.style.display =
+        "none";
+
+
+        displayBooks(
+            visibleBooks
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+
+        loading.style.display =
+        "none";
+
+
+        grid.innerHTML = `
+
+            <div class="noBooks"
+                 style="display:block">
+
+                ⚠️ Unable to load books.
+
+                <br><br>
+
+                Please check your internet
+                connection and refresh the page.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FORMAT BOOK
+===================================================== */
+
+function formatBook(
+    book,
+    index
+){
+
+    let author =
+    "Unknown Author";
+
+
+    if(
+        book.author_name &&
+        book.author_name.length > 0
+    ){
+
+        author =
+        book.author_name
+        .slice(0,2)
+        .join(", ");
+
+    }
+
+
+    let publisher =
+    "Unknown Publisher";
+
+
+    if(
+        book.publisher &&
+        book.publisher.length > 0
+    ){
+
+        publisher =
+        book.publisher[0];
+
+    }
+
+
+    /*
+       Use actual Open Library cover ID
+       whenever available.
+    */
+
+    let image =
+    "";
+
+
+    if(book.cover_i){
+
+        image =
+        "https://covers.openlibrary.org/b/id/" +
+        book.cover_i +
+        "-L.jpg";
+
+    }
+
+    else if(
+        book.isbn &&
+        book.isbn.length > 0
+    ){
+
+        image =
+        "https://covers.openlibrary.org/b/isbn/" +
+        book.isbn[0] +
+        "-L.jpg";
+
+    }
+
+    else{
+
+        image =
+        "https://via.placeholder.com/300x450/" +
+        "4b126b/ffffff?text=No+Cover";
+
+    }
+
+
+    /*
+       Demo price.
+       This is NOT the actual market price.
+    */
+
+    const price =
+    299 +
+    (index * 35);
+
+
+    return{
+
+        id:
+        book.key ||
+        ("book-" + index),
+
+        title:
+        book.title,
+
+        author:
+        author,
+
+        publisher:
+        publisher,
+
+        sponsor:
+        publisher,
+
+        price:
+        price,
+
+        image:
+        image,
+
+        year:
+        book.first_publish_year ||
+        "N/A"
+
+    };
+
+}
+
+
+
+/* =====================================================
+   DISPLAY BOOKS
+===================================================== */
+
+function displayBooks(
+    booksToShow
+){
+
+    const grid =
+    document.getElementById(
+        "bookGrid"
+    );
+
+    const noBooks =
+    document.getElementById(
+        "noBooks"
+    );
+
+
+    grid.innerHTML = "";
+
+
+    if(
+        booksToShow.length === 0
+    ){
+
+        noBooks.style.display =
+        "block";
+
+        return;
+
+    }
+
+
+    noBooks.style.display =
+    "none";
+
+
+    booksToShow.forEach(
+        function(book,index){
+
+            const card =
+            document.createElement(
+                "div"
+            );
+
+
+            card.className =
+            "bookCard";
+
+
+            card.style.animationDelay =
+            (index * 0.05) +
+            "s";
+
+
+            card.innerHTML = `
+
+                <!-- BOOK COVER -->
+
+                <div class="cover">
+
+                    <img
+
+                        src="${book.image}"
+
+                        alt="${escapeHTML(
+                            book.title
+                        )}"
+
+                        loading="lazy"
+
+                        onerror="
+                            this.onerror=null;
+                            this.src=
+                            'https://via.placeholder.com/300x450/4b126b/ffffff?text=Book+Cover';
+                        "
+
+                    >
+
+                </div>
+
+
+                <!-- BOOK INFORMATION -->
+
+                <div class="bookInfo">
+
+                    <h2>
+
+                        ${escapeHTML(
+                            book.title
+                        )}
+
+                    </h2>
+
+
+                    <p class="author">
+
+                        ✍️
+
+                        ${escapeHTML(
+                            book.author
+                        )}
+
+                    </p>
+
+
+                    <p class="publisher">
+
+                        🏢 Publisher:
+
+                        ${escapeHTML(
+                            book.publisher
+                        )}
+
+                    </p>
+
+
+                    <p class="sponsor">
+
+                        🤝 Sponsored by:
+
+                        ${escapeHTML(
+                            book.sponsor
+                        )}
+
+                    </p>
+
+
+                    <p class="publisher">
+
+                        📅 First published:
+
+                        ${book.year}
+
+                    </p>
+
+
+                    <p class="price">
+
+                        ₹${book.price}
+
+                        <small>
+                            demo price
+                        </small>
+
+                    </p>
+
+
+                    <div class="buttons">
+
+                        <button
+
+                            class="btn wishlist"
+
+                            onclick='addWishlist(
+                                ${JSON.stringify(book)}
+                            )'
+
+                        >
+
+                            ❤️ Wishlist
+
+                        </button>
+
+
+                        <button
+
+                            class="btn cart"
+
+                            onclick='addCart(
+                                ${JSON.stringify(book)}
+                            )'
+
+                        >
+
+                            🛒 Add to Cart
+
+                        </button>
+
+
+                        <button
+
+                            class="btn view"
+
+                            onclick='viewBook(
+                                ${JSON.stringify(book)}
+                            )'
+
+                        >
+
+                            👁️ View
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(
+    value
+){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+
+/* =====================================================
+   WISHLIST
+===================================================== */
+
+function addWishlist(
+    book
+){
+
+    let wishlist =
+    JSON.parse(
+        localStorage.getItem(
+            "wishlist"
+        )
+    ) || [];
+
+
+    const exists =
+    wishlist.some(
+        function(item){
+
+            return item.id ===
+            book.id;
+
+        }
+    );
+
+
+    if(exists){
+
+        alert(
+            "❤️ This book is already in Wishlist!"
+        );
+
+        return;
+
+    }
+
+
+    wishlist.push(
+        book
+    );
+
+
+    localStorage.setItem(
+
+        "wishlist",
+
+        JSON.stringify(
+            wishlist
+        )
+
+    );
+
+
+    alert(
+        "❤️ Book added to Wishlist!"
+    );
+
+}
+
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+function addCart(
+    book
+){
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem(
+            "cart"
+        )
+    ) || [];
+
+
+    const existing =
+    cart.find(
+        function(item){
+
+            return item.id ===
+            book.id;
+
+        }
+    );
+
+
+    if(existing){
+
+        existing.quantity =
+        (existing.quantity || 1)
+        + 1;
+
+    }
+
+    else{
+
+        cart.push({
+
+            ...book,
+
+            quantity:1
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+
+        "cart",
+
+        JSON.stringify(
+            cart
+        )
+
+    );
+
+
+    alert(
+        "🛒 Book added to Cart!"
+    );
+
+}
+
+
+
+/* =====================================================
+   VIEW DETAILS
+===================================================== */
+
+function viewBook(
+    book
+){
+
+    localStorage.setItem(
+
+        "selectedBook",
+
+        JSON.stringify(
+            book
+        )
+
+    );
+
+
+    window.location.href =
+    "detail.html";
+
+}
+
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document
+.getElementById(
+    "searchInput"
+)
+.addEventListener(
+    "input",
+    function(){
+
+        const searchText =
+        this.value
+        .toLowerCase()
+        .trim();
+
+
+        visibleBooks =
+        allBooks.filter(
+            function(book){
+
+                return (
+
+                    book.title
+                    .toLowerCase()
+                    .includes(
+                        searchText
+                    )
+
+                    ||
+
+                    book.author
+                    .toLowerCase()
+                    .includes(
+                        searchText
+                    )
+
+                    ||
+
+                    book.publisher
+                    .toLowerCase()
+                    .includes(
+                        searchText
+                    )
+
+                );
+
+            }
+        );
+
+
+        displayBooks(
+            visibleBooks
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadBooks();
+
+</script>
+
+
+</body>
+
+</html>

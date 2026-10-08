@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>BookNest - Book Details</title>
+
+
+<style>
+
+/* =================================================
+   BASIC
+================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial, sans-serif;
+
+    min-height:100vh;
+
+    color:white;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            #d34cff,
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 90% 20%,
+            #762cff,
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 50% 90%,
+            #e62cff,
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #12001f,
+            #35005c,
+            #18002d
+        );
+
+    background-size:200% 200%;
+
+    animation:bgMove 12s ease infinite;
+
+}
+
+
+@keyframes bgMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+
+/* =================================================
+   HEADER
+================================================= */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 5%;
+
+    background:
+        rgba(20,0,40,.95);
+
+    backdrop-filter:blur(15px);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.15);
+
+}
+
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+}
+
+
+.logo span{
+
+    color:#ff75d1;
+
+}
+
+
+nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}
+
+
+nav a{
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:10px 14px;
+
+    border-radius:22px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+
+nav a:hover{
+
+    background:
+        rgba(220,70,255,.25);
+
+    color:#ff8bd9;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =================================================
+   PAGE
+================================================= */
+
+.container{
+
+    width:92%;
+
+    max-width:1250px;
+
+    margin:45px auto 80px;
+
+}
+
+
+/* =================================================
+   BACK BUTTON
+================================================= */
+
+.back{
+
+    display:inline-block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:11px 20px;
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    transition:.3s;
+
+    margin-bottom:30px;
+
+}
+
+
+.back:hover{
+
+    background:
+        rgba(215,70,255,.30);
+
+    transform:
+        translateX(-4px);
+
+}
+
+
+/* =================================================
+   MAIN BOOK AREA
+================================================= */
+
+.bookDetails{
+
+    display:grid;
+
+    grid-template-columns:
+        430px 1fr;
+
+    gap:55px;
+
+    padding:35px;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.35);
+
+    animation:
+        pageShow .7s ease;
+
+}
+
+
+@keyframes pageShow{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =================================================
+   IMAGE AREA
+================================================= */
+
+.imageSection{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+/* image frame */
+
+.imageBox{
+
+    width:330px;
+
+    height:480px;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    background:#230438;
+
+    box-shadow:
+        0 20px 45px
+        rgba(0,0,0,.50);
+
+    cursor:zoom-in;
+
+    position:relative;
+
+}
+
+
+/* actual image */
+
+.imageBox img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:
+        transform .35s ease;
+
+}
+
+
+/* hover zoom */
+
+.imageBox:hover img{
+
+    transform:
+        scale(1.20);
+
+}
+
+
+/* zoom buttons */
+
+.zoomButtons{
+
+    margin-top:18px;
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+.zoomButtons button{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:20px;
+
+    background:
+        rgba(255,255,255,.14);
+
+    border:
+        1px solid
+        rgba(255,255,255,.20);
+
+    transition:.3s;
+
+}
+
+
+.zoomButtons button:hover{
+
+    background:
+        rgba(215,70,255,.35);
+
+    transform:
+        scale(1.08);
+
+}
+
+
+.zoomText{
+
+    margin-top:10px;
+
+    color:#cdb6dd;
+
+    font-size:13px;
+
+}
+
+
+/* =================================================
+   INFO
+================================================= */
+
+.info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+
+.categoryBadge{
+
+    display:inline-block;
+
+    width:max-content;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    background:
+        rgba(220,80,255,.18);
+
+    border:
+        1px solid
+        rgba(230,120,255,.30);
+
+    color:#ff9bdd;
+
+    font-size:13px;
+
+    margin-bottom:14px;
+
+}
+
+
+.info h1{
+
+    font-size:38px;
+
+    line-height:1.2;
+
+    margin-bottom:12px;
+
+}
+
+
+.author{
+
+    color:#dfc8ea;
+
+    font-size:17px;
+
+    margin-bottom:18px;
+
+}
+
+
+.rating{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+
+.stars{
+
+    color:#ffd34d;
+
+    font-size:22px;
+
+}
+
+
+.ratingText{
+
+    color:#d8c3e4;
+
+    font-size:14px;
+
+}
+
+
+/* =================================================
+   DETAILS
+================================================= */
+
+.detailList{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:12px;
+
+    margin:15px 0 20px;
+
+}
+
+
+.detailItem{
+
+    padding:13px;
+
+    border-radius:13px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+}
+
+
+.detailItem span{
+
+    display:block;
+
+    color:#bfa7cf;
+
+    font-size:12px;
+
+    margin-bottom:5px;
+
+}
+
+
+.detailItem strong{
+
+    color:white;
+
+    font-size:14px;
+
+}
+
+
+/* =================================================
+   PRICE
+================================================= */
+
+.price{
+
+    font-size:32px;
+
+    font-weight:bold;
+
+    color:#ff91d6;
+
+    margin:10px 0 20px;
+
+}
+
+
+.price small{
+
+    font-size:12px;
+
+    color:#bca4ca;
+
+    font-weight:normal;
+
+}
+
+
+/* =================================================
+   BUTTONS
+================================================= */
+
+.actionButtons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-bottom:25px;
+
+}
+
+
+.actionButtons button{
+
+    border:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    padding:13px 20px;
+
+    border-radius:25px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+
+.actionButtons button:hover{
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+.orderBtn{
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff4d85,
+            #ff735c
+        );
+
+    box-shadow:
+        0 8px 25px
+        rgba(255,80,120,.25);
+
+}
+
+
+.cartBtn{
+
+    background:
+        linear-gradient(
+            45deg,
+            #702cff,
+            #ba35e8
+        );
+
+}
+
+
+.wishlistBtn{
+
+    background:
+        rgba(255,65,150,.20);
+
+    border:
+        1px solid
+        rgba(255,110,180,.40) !important;
+
+}
+
+
+/* =================================================
+   CONTENT SECTION
+================================================= */
+
+.contentSection{
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:25px;
+
+}
+
+
+.infoCard{
+
+    padding:25px;
+
+    border-radius:23px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    backdrop-filter:blur(15px);
+
+}
+
+
+.infoCard h2{
+
+    font-size:22px;
+
+    color:#ff91d6;
+
+    margin-bottom:14px;
+
+}
+
+
+.infoCard p{
+
+    color:#dfcde8;
+
+    line-height:1.7;
+
+    font-size:15px;
+
+}
+
+
+/* =================================================
+   REVIEWS
+================================================= */
+
+.review{
+
+    padding:15px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.10);
+
+}
+
+
+.review:last-child{
+
+    border-bottom:none;
+
+}
+
+
+.reviewName{
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+
+}
+
+
+.reviewStars{
+
+    color:#ffd34d;
+
+    margin-bottom:6px;
+
+}
+
+
+.review p{
+
+    font-size:14px;
+
+    line-height:1.5;
+
+}
+
+
+/* =================================================
+   PROVIDER
+================================================= */
+
+.provider{
+
+    margin-top:25px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(214,65,255,.15),
+            rgba(110,45,255,.12)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.13);
+
+}
+
+
+.provider h3{
+
+    color:#ff9ddd;
+
+    margin-bottom:8px;
+
+}
+
+
+.provider p{
+
+    color:#d9c5e5;
+
+    line-height:1.6;
+
+}
+
+
+/* =================================================
+   NOT FOUND
+================================================= */
+
+.notFound{
+
+    text-align:center;
+
+    padding:70px 20px;
+
+    font-size:22px;
+
+}
+
+
+.notFound a{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:25px;
+
+    background:
+        #7431d8;
+
+}
+
+
+/* =================================================
+   MOBILE
+================================================= */
+
+@media(max-width:900px){
+
+    .bookDetails{
+
+        grid-template-columns:1fr;
+
+        gap:35px;
+
+    }
+
+    .imageBox{
+
+        width:280px;
+
+        height:410px;
+
+    }
+
+    .info h1{
+
+        font-size:30px;
+
+    }
+
+    .contentSection{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    header{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    nav{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    .bookDetails{
+
+        padding:20px;
+
+    }
+
+    .detailList{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     HEADER
+================================================= -->
+
+<header>
+
+    <div class="logo">
+
+        Book<span>Nest</span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            🏠 Home
+        </a>
+
+        <a href="books.html">
+            📚 Categories
+        </a>
+
+        <a href="wishlist.html">
+            ❤️ Wishlist
+        </a>
+
+        <a href="cart.html">
+            🛒 Cart
+        </a>
+
+        <a href="return.html">
+            📦 Orders
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =================================================
+     MAIN
+================================================= -->
+
+<div class="container">
+
+
+    <a
+        href="books.html"
+        class="back"
+    >
+
+        ← Back to Categories
+
+    </a>
+
+
+
+    <div id="pageContent">
+
+
+        <!-- BOOK DETAILS WILL COME HERE -->
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =================================================
+   GET SELECTED BOOK
+================================================= */
+
+const savedBook =
+localStorage.getItem(
+    "selectedBook"
+);
+
+
+
+/* =================================================
+   IF NO BOOK SELECTED
+================================================= */
+
+if(!savedBook){
+
+    document.getElementById(
+        "pageContent"
+    ).innerHTML = `
+
+        <div class="notFound">
+
+            😔 No book selected.
+
+            <br>
+
+            Please select a book first.
+
+            <br>
+
+            <a href="books.html">
+                Go to Categories
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =================================================
+   SHOW SELECTED BOOK
+================================================= */
+
+else{
+
+    try{
+
+        const book =
+        JSON.parse(
+            savedBook
+        );
+
+
+        showBook(
+            book
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        document.getElementById(
+            "pageContent"
+        ).innerHTML = `
+
+            <div class="notFound">
+
+                ⚠️ Unable to load book details.
+
+                <br>
+
+                <a href="books.html">
+                    Go to Categories
+                </a>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =================================================
+   DISPLAY BOOK
+================================================= */
+
+function showBook(book){
+
+    const content =
+    document.getElementById(
+        "pageContent"
+    );
+
+
+    const image =
+    book.image ||
+    "https://via.placeholder.com/400x600/4b126b/ffffff?text=Book+Cover";
+
+
+    const title =
+    book.title ||
+    "Unknown Book";
+
+
+    const author =
+    book.author ||
+    "Unknown Author";
+
+
+    const publisher =
+    book.publisher ||
+    "Unknown Publisher";
+
+
+    const sponsor =
+    book.sponsor ||
+    publisher;
+
+
+    const price =
+    book.price ||
+    299;
+
+
+    /*
+       Language is not always available
+       from Open Library search result.
+       Default display.
+    */
+
+    const language =
+    book.language ||
+    "English";
+
+
+    content.innerHTML = `
+
+        <!-- ======================================
+             MAIN BOOK
+        ======================================= -->
+
+        <section class="bookDetails">
+
+
+            <!-- IMAGE -->
+
+            <div class="imageSection">
+
+                <div
+                    class="imageBox"
+                    id="imageBox"
+                >
+
+                    <img
+                        id="bookImage"
+                        src="${image}"
+                        alt="${escapeHTML(title)}"
+
+                        onerror="
+                            this.onerror=null;
+                            this.src=
+                            'https://via.placeholder.com/400x600/4b126b/ffffff?text=Book+Cover';
+                        "
+                    >
+
+                </div>
+
+
+                <div class="zoomButtons">
+
+                    <button
+                        onclick="zoomIn()"
+                        title="Zoom In"
+                    >
+                        +
+                    </button>
+
+
+                    <button
+                        onclick="zoomOut()"
+                        title="Zoom Out"
+                    >
+                        −
+                    </button>
+
+
+                    <button
+                        onclick="resetZoom()"
+                        title="Reset"
+                    >
+                        ↺
+                    </button>
+
+                </div>
+
+
+                <div class="zoomText">
+
+                    🔍 Use buttons or move mouse
+                    over the cover to zoom
+
+                </div>
+
+            </div>
+
+
+
+            <!-- INFORMATION -->
+
+            <div class="info">
+
+
+                <div class="categoryBadge">
+
+                    📚 BookNest Collection
+
+                </div>
+
+
+                <h1>
+
+                    ${escapeHTML(title)}
+
+                </h1>
+
+
+                <p class="author">
+
+                    ✍️ Written by
+
+                    <strong>
+                        ${escapeHTML(author)}
+                    </strong>
+
+                </p>
+
+
+                <div class="rating">
+
+                    <div class="stars">
+
+                        ★★★★★
+
+                    </div>
+
+                    <div class="ratingText">
+
+                        4.6 / 5
+                        · 128 Reviews
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DETAILS -->
+
+                <div class="detailList">
+
+
+                    <div class="detailItem">
+
+                        <span>
+                            Author
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(author)}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detailItem">
+
+                        <span>
+                            Language
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(language)}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detailItem">
+
+                        <span>
+                            Publisher
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(publisher)}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detailItem">
+
+                        <span>
+                            Availability
+                        </span>
+
+                        <strong>
+                            ✅ In Stock
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detailItem">
+
+                        <span>
+                            Format
+                        </span>
+
+                        <strong>
+                            Paperback
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detailItem">
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        <strong>
+                            🚚 Available
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PRICE -->
+
+                <div class="price">
+
+                    ₹${price}
+
+                    <small>
+                        inclusive of taxes
+                    </small>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="actionButtons">
+
+
+                    <button
+                        class="orderBtn"
+                        onclick="orderNow()"
+                    >
+
+                        ⚡ Order Now
+
+                    </button>
+
+
+                    <button
+                        class="cartBtn"
+                        onclick="addCart()"
+                    >
+
+                        🛒 Add to Cart
+
+                    </button>
+
+
+                    <button
+                        class="wishlistBtn"
+                        onclick="addWishlist()"
+                    >
+
+                        ❤️ Wishlist
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- PROVIDER -->
+
+                <div class="provider">
+
+                    <h3>
+
+                        🤝 Provided By
+
+                    </h3>
+
+
+                    <p>
+
+                        This book is provided by
+
+                        <strong>
+                            ${escapeHTML(sponsor)}
+                        </strong>.
+
+                        BookNest displays the book
+                        information and makes it
+                        available for purchase.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             CONTENT + REVIEWS
+        ======================================= -->
+
+        <section class="contentSection">
+
+
+            <!-- BOOK CONTENT -->
+
+            <div class="infoCard">
+
+                <h2>
+
+                    📖 About This Book
+
+                </h2>
+
+
+                <p>
+
+                    <strong>
+                        ${escapeHTML(title)}
+                    </strong>
+
+                    is a book written by
+
+                    <strong>
+                        ${escapeHTML(author)}
+                    </strong>.
+
+                    This book is presented in
+
+                    <strong>
+                        ${escapeHTML(language)}
+                    </strong>
+
+                    and is published by
+
+                    <strong>
+                        ${escapeHTML(publisher)}
+                    </strong>.
+
+                    <br><br>
+
+                    The book contains useful ideas,
+                    information and concepts related
+                    to its subject. Readers can explore
+                    the main topics, learn new ideas and
+                    enjoy the complete reading experience.
+
+                    <br><br>
+
+                    📚 Perfect for readers who want to
+                    explore this category and discover
+                    something interesting to read.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- REVIEWS -->
+
+            <div class="infoCard">
+
+                <h2>
+
+                    ⭐ Customer Reviews
+
+                </h2>
+
+
+                <div class="review">
+
+                    <div class="reviewName">
+
+                        Priya
+
+                    </div>
+
+                    <div class="reviewStars">
+
+                        ★★★★★
+
+                    </div>
+
+                    <p>
+
+                        Very interesting book.
+                        The content was easy to understand
+                        and the book arrived safely.
+
+                    </p>
+
+                </div>
+
+
+                <div class="review">
+
+                    <div class="reviewName">
+
+                        Arun
+
+                    </div>
+
+                    <div class="reviewStars">
+
+                        ★★★★☆
+
+                    </div>
+
+                    <p>
+
+                        Good quality and useful content.
+                        The cover and printing quality
+                        were also good.
+
+                    </p>
+
+                </div>
+
+
+                <div class="review">
+
+                    <div class="reviewName">
+
+                        Meena
+
+                    </div>
+
+                    <div class="reviewStars">
+
+                        ★★★★★
+
+                    </div>
+
+                    <p>
+
+                        I enjoyed reading this book.
+                        Worth adding to a personal
+                        collection.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+    `;
+
+}
+
+
+
+/* =================================================
+   ESCAPE HTML
+================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+
+/* =================================================
+   ZOOM
+================================================= */
+
+let zoom =
+1;
+
+
+function zoomIn(){
+
+    zoom += .15;
+
+    if(zoom > 2){
+
+        zoom = 2;
+
+    }
+
+    updateZoom();
+
+}
+
+
+function zoomOut(){
+
+    zoom -= .15;
+
+    if(zoom < 1){
+
+        zoom = 1;
+
+    }
+
+    updateZoom();
+
+}
+
+
+function resetZoom(){
+
+    zoom = 1;
+
+    updateZoom();
+
+}
+
+
+function updateZoom(){
+
+    const image =
+    document.getElementById(
+        "bookImage"
+    );
+
+
+    if(image){
+
+        image.style.transform =
+        "scale(" + zoom + ")";
+
+    }
+
+}
+
+
+
+/* =================================================
+   ADD CART
+================================================= */
+
+function addCart(){
+
+    const book =
+    JSON.parse(
+        localStorage.getItem(
+            "selectedBook"
+        )
+    );
+
+
+    if(!book){
+
+        alert(
+            "No book selected!"
+        );
+
+        return;
+
+    }
+
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem(
+            "cart"
+        )
+    ) || [];
+
+
+    const existing =
+    cart.find(
+        function(item){
+
+            return item.id ===
+            book.id;
+
+        }
+    );
+
+
+    if(existing){
+
+        existing.quantity =
+        (existing.quantity || 1) + 1;
+
+    }
+
+    else{
+
+        cart.push({
+
+            ...book,
+
+            quantity:1
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+
+        "cart",
+
+        JSON.stringify(
+            cart
+        )
+
+    );
+
+
+    alert(
+        "🛒 Book added to Cart!"
+    );
+
+}
+
+
+
+/* =================================================
+   WISHLIST
+================================================= */
+
+function addWishlist(){
+
+    const book =
+    JSON.parse(
+        localStorage.getItem(
+            "selectedBook"
+        )
+    );
+
+
+    if(!book){
+
+        alert(
+            "No book selected!"
+        );
+
+        return;
+
+    }
+
+
+    let wishlist =
+    JSON.parse(
+        localStorage.getItem(
+            "wishlist"
+        )
+    ) || [];
+
+
+    const exists =
+    wishlist.some(
+        function(item){
+
+            return item.id ===
+            book.id;
+
+        }
+    );
+
+
+    if(exists){
+
+        alert(
+            "❤️ Already in Wishlist!"
+        );
+
+        return;
+
+    }
+
+
+    wishlist.push(
+        book
+    );
+
+
+    localStorage.setItem(
+
+        "wishlist",
+
+        JSON.stringify(
+            wishlist
+        )
+
+    );
+
+
+    alert(
+        "❤️ Book added to Wishlist!"
+    );
+
+}
+
+
+
+/* =================================================
+   ORDER NOW
+================================================= */
+
+function orderNow(){
+
+    const book =
+    JSON.parse(
+        localStorage.getItem(
+            "selectedBook"
+        )
+    );
+
+
+    if(!book){
+
+        alert(
+            "No book selected!"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Save the exact selected book.
+       Your order page can read this.
+    */
+
+    localStorage.setItem(
+
+        "orderBook",
+
+        JSON.stringify(
+            book
+        )
+
+    );
+
+
+    /*
+       If you have an order page,
+       change this to order.html
+    */
+
+    window.location.href =
+    "order.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

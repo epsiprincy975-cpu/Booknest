@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookNest - Cart</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    color:white;
+
+    background:
+    radial-gradient(circle at 10% 10%,#d34cff,transparent 25%),
+    radial-gradient(circle at 90% 20%,#762cff,transparent 25%),
+    linear-gradient(135deg,#12001f,#35005c,#18002d);
+
+    background-size:200% 200%;
+    animation:bgMove 12s ease infinite;
+
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 5%;
+
+    background:rgba(20,0,40,.95);
+
+    border-bottom:
+    1px solid rgba(255,255,255,.15);
+
+    position:sticky;
+    top:0;
+    z-index:10;
+
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ff75d1;
+}
+
+nav{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:10px 14px;
+    border-radius:22px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    background:rgba(220,70,255,.25);
+}
+
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:40px auto;
+}
+
+h1{
+    text-align:center;
+    font-size:38px;
+    color:#ff91d6;
+    margin-bottom:30px;
+}
+
+.cartItem{
+
+    display:flex;
+    gap:20px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.15);
+
+}
+
+.cartItem img{
+
+    width:130px;
+    height:190px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+}
+
+.info{
+    flex:1;
+}
+
+.info h2{
+    margin-bottom:10px;
+}
+
+.author{
+    color:#d8c2e4;
+}
+
+.price{
+    color:#ff91d6;
+    font-size:22px;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.quantity button{
+
+    width:35px;
+    height:35px;
+
+    border:none;
+
+    border-radius:50%;
+
+    color:white;
+
+    background:#7131c9;
+
+    cursor:pointer;
+
+}
+
+.remove{
+
+    margin-top:15px;
+
+    border:none;
+
+    padding:9px 15px;
+
+    border-radius:20px;
+
+    background:#c52c72;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+.summary{
+
+    margin-top:30px;
+
+    padding:25px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.10);
+
+    text-align:right;
+
+}
+
+.total{
+
+    font-size:28px;
+
+    color:#ff91d6;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
+}
+
+.orderBtn{
+
+    border:none;
+
+    padding:14px 25px;
+
+    border-radius:25px;
+
+    background:
+    linear-gradient(45deg,#ff4d85,#ff735c);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.empty{
+
+    text-align:center;
+
+    padding:60px;
+
+    color:#dbc9e7;
+
+    font-size:20px;
+
+}
+
+.empty a{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    background:#7431d8;
+
+    border-radius:25px;
+
+}
+
+@media(max-width:600px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .cartItem{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    .quantity{
+        justify-content:center;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        Book<span>Nest</span>
+    </div>
+
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="books.html">📚 Categories</a>
+        <a href="wishlist.html">❤️ Wishlist</a>
+        <a href="cart.html">🛒 Cart</a>
+        <a href="order.html">📦 Orders</a>
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h1>🛒 My Cart</h1>
+
+    <div id="cartContainer"></div>
+
+</div>
+
+
+<script>
+
+function loadCart(){
+
+    const container =
+    document.getElementById(
+        "cartContainer"
+    );
+
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+
+    if(cart.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                🛒 Your cart is empty.
+
+                <br><br>
+
+                <a href="books.html">
+                    Browse Books
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+
+    container.innerHTML = "";
+
+
+    cart.forEach(function(book,index){
+
+        const quantity =
+        book.quantity || 1;
+
+
+        total +=
+        Number(book.price || 0)
+        * quantity;
+
+
+        const item =
+        document.createElement("div");
+
+        item.className =
+        "cartItem";
+
+
+        item.innerHTML = `
+
+            <img
+                src="${book.image}"
+                alt="${escapeHTML(book.title)}"
+
+                onerror="
+                    this.src=
+                    'https://via.placeholder.com/300x450/4b126b/ffffff?text=Book';
+                "
+            >
+
+
+            <div class="info">
+
+                <h2>
+                    ${escapeHTML(book.title)}
+                </h2>
+
+                <p class="author">
+                    ✍️ ${escapeHTML(book.author)}
+                </p>
+
+                <p class="price">
+                    ₹${book.price}
+                </p>
+
+
+                <div class="quantity">
+
+                    <button
+                        onclick="changeQuantity(${index},-1)"
+                    >
+                        −
+                    </button>
+
+                    <strong>
+                        ${quantity}
+                    </strong>
+
+                    <button
+                        onclick="changeQuantity(${index},1)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+
+                <button
+                    class="remove"
+                    onclick="removeCart(${index})"
+                >
+                    ❌ Remove
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(item);
+
+    });
+
+
+    const summary =
+    document.createElement("div");
+
+
+    summary.className =
+    "summary";
+
+
+    summary.innerHTML = `
+
+        <div class="total">
+
+            Total: ₹${total}
+
+        </div>
+
+        <button
+            class="orderBtn"
+            onclick="checkout()"
+        >
+
+            ⚡ Order Now
+
+        </button>
+
+    `;
+
+
+    container.appendChild(summary);
+
+}
+
+
+function changeQuantity(
+    index,
+    amount
+){
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+
+    cart[index].quantity =
+    (cart[index].quantity || 1)
+    + amount;
+
+
+    if(cart[index].quantity < 1){
+
+        cart[index].quantity = 1;
+
+    }
+
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+
+    loadCart();
+
+}
+
+
+function removeCart(index){
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+
+    cart.splice(index,1);
+
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+
+    loadCart();
+
+}
+
+
+function checkout(){
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+
+    if(cart.length === 0){
+
+        alert("Your cart is empty!");
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "orderCart",
+        JSON.stringify(cart)
+    );
+
+
+    window.location.href =
+    "order.html";
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+loadCart();
+
+</script>
+
+</body>
+</html>

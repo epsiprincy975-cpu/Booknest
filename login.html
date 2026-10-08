@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookNest - Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: #10024a;
+}
+
+/* BLURRED BACKGROUND */
+
+.background {
+    position: fixed;
+    inset: -20px;
+    background:
+        radial-gradient(circle at 20% 20%,
+            #e50087, transparent 35%),
+        radial-gradient(circle at 80% 75%,
+            #0077ff, transparent 40%),
+        radial-gradient(circle at 50% 40%,
+            #6c209c, #10024a 70%);
+
+    filter: blur(12px);
+    transform: scale(1.1);
+    animation: glow 7s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        transform: scale(1.1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}
+
+/* FLOATING BOOK DECORATION */
+
+.book {
+    position: fixed;
+    font-size: 65px;
+    opacity: 0.45;
+    animation: float 4s ease-in-out infinite;
+}
+
+.book1 {
+    top: 12%;
+    left: 10%;
+}
+
+.book2 {
+    top: 15%;
+    right: 10%;
+    animation-delay: 1s;
+}
+
+.book3 {
+    bottom: 12%;
+    left: 12%;
+    animation-delay: 2s;
+}
+
+.book4 {
+    bottom: 12%;
+    right: 10%;
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+    50% {
+        transform: translateY(-20px) rotate(8deg);
+    }
+}
+
+/* LOGIN FORM */
+
+.login-card {
+    position: relative;
+    z-index: 2;
+    width: min(420px, 90%);
+    padding: 38px 30px;
+    text-align: center;
+    color: white;
+
+    background: rgba(20, 8, 55, 0.88);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 30px rgba(210, 40, 255, 0.4),
+        0 20px 60px rgba(0,0,0,0.35);
+
+    backdrop-filter: none;
+    animation: appear 0.8s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo {
+    font-size: 55px;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+h1 span {
+    color: #ffbd22;
+}
+
+.subtitle {
+    color: #ddd0f5;
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin: 16px 0 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.35);
+    outline: none;
+
+    background: rgba(255,255,255,0.10);
+    color: white;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: #c8bddb;
+}
+
+input:focus {
+    border-color: #ff54dd;
+    box-shadow: 0 0 12px rgba(255,54,212,0.4);
+}
+
+.login-btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+
+    background: linear-gradient(
+        90deg, #b72cff, #ec39c3, #ff7348
+    );
+
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+
+    box-shadow: 0 0 20px rgba(236,57,195,0.4);
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px rgba(255,54,212,0.7);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 22px;
+    color: #ffbdff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 30px 22px;
+    }
+
+    .book {
+        font-size: 40px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="background"></div>
+
+<div class="book book1">📚</div>
+<div class="book book2">📖</div>
+<div class="book book3">📕</div>
+<div class="book book4">📘</div>
+
+<!-- LOGIN FORM -->
+<div class="login-card">
+
+    <div class="logo">📖</div>
+
+    <h1>Book<span>Nest</span></h1>
+
+    <p class="subtitle">
+        Welcome, book lover! ✨<br>
+        Sign in to explore your next story.
+    </p>
+
+    <form id="loginForm">
+
+        <label for="username">Your Name</label>
+        <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your name"
+            required
+        >
+
+        <label for="contact">Gmail or Phone Number</label>
+        <input
+            type="text"
+            id="contact"
+            name="contact"
+            placeholder="Enter Gmail or phone number"
+            required
+        >
+
+        <button type="submit" class="login-btn">
+            Login & Explore →
+        </button>
+
+    </form>
+
+    <a href="index.html" class="back-link">
+        ← Back to Home
+    </a>
+
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("username").value.trim();
+
+        const contact =
+            document.getElementById("contact").value.trim();
+
+        const isEmail =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+
+        const isPhone =
+            /^\+?[0-9\s()-]{10,15}$/.test(contact);
+
+        if (!isEmail && !isPhone) {
+            alert("Please enter a valid Gmail or phone number.");
+            return;
+        }
+
+        if (!name) {
+            alert("Please enter your name.");
+            return;
+        }
+
+        // Frontend demo only; this does not verify identity.
+        window.location.href = "books.html";
+    }
+);
+</script>
+
+</body>
+</html>
